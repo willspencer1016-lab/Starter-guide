@@ -241,6 +241,23 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
 .rows.extras:not(:has(.row:not([hidden]))) { display: none; }
 .rows.extras .row:not([hidden]) ~ .row:not([hidden]) { border-top: 1px solid var(--line); }
 .rows.extras .row:first-of-type, .rows.extras .row[hidden] + .row { border-top: 0; }
+.tours { display: flex; flex-direction: column; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); }
+.tours label { display: flex; flex-direction: column; gap: 2px; }
+.tours label b { font-weight: 800; font-size: 18px; }
+.tours label span { font-size: 14px; color: var(--muted); }
+.tours-row { display: flex; gap: 8px; }
+.tours-row input {
+  flex: 1; min-width: 0; font: inherit; font-size: 16px; color: var(--fg); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px;
+}
+.tours-row input:focus { outline: 2px solid var(--green); outline-offset: 1px; }
+.tours-row .cta { border: 0; cursor: pointer; font-family: inherit; }
+.tours-row .cta::after { content: ""; }
+.tours-quick { display: flex; flex-wrap: wrap; gap: 6px; }
+.tours-quick button {
+  font: inherit; font-size: 13px; font-weight: 700; color: var(--green); background: var(--green-soft);
+  border: 0; border-radius: 999px; padding: 6px 12px; cursor: pointer;
+}
 .foot { display: flex; flex-direction: column; gap: 18px; }
 .socials { display: flex; flex-wrap: wrap; gap: 8px; }
 .socials a {
@@ -312,11 +329,20 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
         </span>
       </a>
     </div>
-    <div class="rows extras" data-needs="getyourguide amazon">
-      <a class="row" data-link="getyourguide" href="#" target="_blank" rel="noopener sponsored" hidden>
-        <span class="pick-body"><span class="pick-name">Tours and day trips</span><span class="pick-why">Book island hops, treks and day trips on GetYourGuide.</span></span>
-        <span class="go">Browse</span>
-      </a>
+    <form class="tours" id="tours" hidden>
+      <label for="tour-city"><b>Find tours anywhere</b><span>Island hops, treks, food tours and day trips on GetYourGuide.</span></label>
+      <div class="tours-row">
+        <input id="tour-city" name="city" type="text" placeholder="Where are you headed?" autocomplete="off" enterkeyhint="search" required>
+        <button class="cta" type="submit">Search</button>
+      </div>
+      <div class="tours-quick">
+        <button type="button" data-city="Bangkok">Bangkok</button>
+        <button type="button" data-city="Da Nang">Da Nang</button>
+        <button type="button" data-city="Bali">Bali</button>
+        <button type="button" data-city="Chiang Mai">Chiang Mai</button>
+      </div>
+    </form>
+    <div class="rows extras">
       <a class="row" data-link="amazon" href="#" target="_blank" rel="noopener sponsored" hidden>
         <span class="pick-body"><span class="pick-name">What I pack</span><span class="pick-why">My travel and camera gear on Amazon.</span></span>
         <span class="go">See gear</span>
@@ -412,7 +438,7 @@ var LINKS = {
   rocketship: "",
   flexjobs: "",
   /* From your Linktree. Empty ones stay hidden. */
-  getyourguide: "",
+  gygPartnerId: "",   /* your GetYourGuide partner ID, e.g. "ABCD123" */
   amazon: "",
   coaching: "",
   map: "",
@@ -475,6 +501,24 @@ document.querySelectorAll('[data-link]').forEach(function (a) {
   var url = LINKS[a.dataset.link];
   if (url) { a.href = url; a.hidden = false; }
 });
+(function () {
+  var form = document.getElementById('tours');
+  if (!LINKS.gygPartnerId || !form) return;
+  form.hidden = false;
+  var input = document.getElementById('tour-city');
+  function go(city) {
+    city = (city || '').trim();
+    if (!city) { input.focus(); return; }
+    var url = 'https://www.getyourguide.com/s/?q=' + encodeURIComponent(city) +
+      '&partner_id=' + encodeURIComponent(LINKS.gygPartnerId) + '&cmp=starterguide&utm_medium=online_publisher';
+    if (typeof gtag === 'function') gtag('event', 'tour_search', { city: city.toLowerCase(), transport_type: 'beacon' });
+    window.open(url, '_blank', 'noopener');
+  }
+  form.addEventListener('submit', function (e) { e.preventDefault(); go(input.value); });
+  form.querySelectorAll('[data-city]').forEach(function (b) {
+    b.addEventListener('click', function () { input.value = b.dataset.city; go(b.dataset.city); });
+  });
+})();
 (function () {
   var coach = document.querySelector('.coach');
   if (coach && LINKS.coaching) coach.href = LINKS.coaching;
