@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nomadic Muscle Starter Guide</title>
+<meta name="description" content="Everything I'd set up before moving to Southeast Asia: money, insurance, eSIM, remote income and what a month really costs. By Will, @NomadicMuscle.">
+<meta property="og:title" content="Nomad Starter Guide">
+<meta property="og:description" content="Everything I'd set up before moving to Southeast Asia. Tap, sign up, done.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://starterguide.nomadicmuscle.com/">
+<meta name="theme-color" content="#F4F6F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B120E" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23101A15'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial Narrow,Impact,sans-serif' font-weight='900' font-size='38' fill='%23F2B705'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap">
+<!-- analytics: paste the tracking snippet here -->
+<style>
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+/* Layout: single 520px column. Sticky three-tab navigator. Essentials as a numbered timeline,
+   income as one featured card plus two rows, costs as a swipeable card set. Every pick is one big tap target. */
+:root {
+  --bg: #F4F6F2;
+  --surface: #FFFFFF;
+  --fg: #101A15;
+  --muted: #5E6E65;
+  --line: #DFE6E0;
+  --green: #17704A;
+  --green-soft: #E3F0E8;
+  --mango: #F2B705;
+  --mango-ink: #101A15;
+  --ink: #101A15;
+  --ink-fg: #EEF3EF;
+  --ink-muted: #A9B8AF;
+  --ink-line: rgba(238, 243, 239, .14);
+  --nav-bg: rgba(244, 246, 242, .88);
+  --shadow: 0 1px 2px rgba(16, 26, 21, .06), 0 6px 20px rgba(16, 26, 21, .06);
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B120E; --surface: #141D18; --fg: #EAF1EC; --muted: #93A49A; --line: #24302A;
+    --green: #4CC487; --green-soft: #183326; --mango: #F5C437; --mango-ink: #101A15;
+    --ink: #1A2620; --ink-fg: #EAF1EC; --ink-muted: #9FB0A6; --ink-line: rgba(234, 241, 236, .12);
+    --nav-bg: rgba(11, 18, 14, .86); --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 20px rgba(0, 0, 0, .25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B120E; --surface: #141D18; --fg: #EAF1EC; --muted: #93A49A; --line: #24302A;
+  --green: #4CC487; --green-soft: #183326; --mango: #F5C437; --mango-ink: #101A15;
+  --ink: #1A2620; --ink-fg: #EAF1EC; --ink-muted: #9FB0A6; --ink-line: rgba(234, 241, 236, .12);
+  --nav-bg: rgba(11, 18, 14, .86); --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 20px rgba(0, 0, 0, .25);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--body);
+  font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 40px;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--mango); outline-offset: 2px; border-radius: 10px; }
+
+/* Hero */
+.hero { padding-top: 32px; display: flex; flex-direction: column; gap: 14px; }
+.who { display: flex; align-items: center; gap: 10px; }
+.mark {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--mango);
+  display: grid; place-items: center; font-family: var(--display); font-weight: 900; font-size: 20px; flex: none;
+}
+.who-text { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.who-text b { font-size: 15px; }
+.who-text span { font-size: 13px; color: var(--muted); }
+h1 {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase; margin: 0;
+  font-size: clamp(46px, 14vw, 72px); line-height: .9; letter-spacing: .005em;
+}
+h1 em { font-style: normal; color: var(--green); }
+.promise { margin: 0; font-size: 18px; line-height: 1.45; max-width: 34ch; }
+
+/* Sticky navigator */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  margin-inline: -4px; padding: 10px 4px;
+  background: var(--nav-bg); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.nav-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px; }
+.nav a {
+  text-decoration: none; text-align: center; font-weight: 700; font-size: 14px;
+  padding: 9px 4px; border-radius: 999px; color: var(--muted);
+}
+.nav a[aria-current="true"] { background: var(--fg); color: var(--bg); }
+
+/* Section heads */
+section { display: flex; flex-direction: column; gap: 14px; }
+.head { display: flex; flex-direction: column; gap: 4px; }
+.kicker { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--green); }
+h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 32px; line-height: 1; margin: 0; }
+.head p { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+
+/* Pick cards: the whole card is the link */
+.picks { display: flex; flex-direction: column; gap: 10px; }
+.pick {
+  display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  padding: 16px; text-decoration: none; box-shadow: var(--shadow);
+}
+.step {
+  width: 30px; height: 30px; border-radius: 50%; background: var(--green-soft); color: var(--green);
+  display: grid; place-items: center; font-family: var(--mono); font-weight: 700; font-size: 13px; margin-top: 2px;
+}
+.pick-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.pick-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.pick-name { font-weight: 800; font-size: 18px; line-height: 1.2; }
+.pick-type { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.pick-why { font-size: 15px; color: var(--muted); }
+.pick-when { font-size: 13px; font-weight: 600; color: var(--green); }
+.pick-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+.cta {
+  display: inline-flex; align-items: center; gap: 6px; background: var(--mango); color: var(--mango-ink);
+  font-weight: 800; font-size: 15px; border-radius: 999px; padding: 10px 16px;
+}
+.cta::after { content: "→"; }
+.perk { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--green); background: var(--green-soft); border-radius: 6px; padding: 4px 8px; }
+.perk[hidden] { display: none !important; }
+@media (hover: hover) { .pick:hover { border-color: var(--green); } }
+@media (prefers-reduced-motion: no-preference) {
+  .pick { transition: transform .12s ease, border-color .12s ease; }
+  .pick:active { transform: scale(.985); }
+}
+
+/* Featured income card */
+.feature {
+  display: flex; flex-direction: column; gap: 10px; text-decoration: none;
+  background: var(--ink); color: var(--ink-fg); border-radius: 18px; padding: 20px;
+}
+.feature .badge { align-self: flex-start; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--mango); color: var(--mango-ink); border-radius: 6px; padding: 4px 8px; }
+.feature .pick-name { font-size: 26px; font-family: var(--display); text-transform: uppercase; font-weight: 800; }
+.feature .pick-why { color: var(--ink-muted); font-size: 16px; }
+.feature .pick-foot { margin-top: 4px; }
+.feature .note { font-size: 13px; color: var(--ink-muted); }
+
+.rows { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); }
+.row {
+  display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;
+  padding: 14px 16px; text-decoration: none; border-top: 1px solid var(--line);
+}
+.row:first-child { border-top: 0; }
+.row .pick-name { font-size: 16px; }
+.row .pick-why { font-size: 14px; }
+.row .go { font-weight: 800; font-size: 14px; color: var(--green); white-space: nowrap; }
+.row .go::after { content: " →"; }
+
+/* Income paths */
+.path { display: flex; flex-direction: column; gap: 8px; }
+.path-label { font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+.path-label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--mango); }
+.path-note { margin: 0; font-size: 14px; color: var(--muted); }
+.feature .note { flex: 1 1 100%; }
+
+/* Cost cards */
+.tiers { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px; gap: 4px; }
+.tier { appearance: none; border: 0; background: transparent; color: var(--muted); font: inherit; font-weight: 700; font-size: 14px; padding: 9px 4px; border-radius: 999px; cursor: pointer; }
+.tier[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.tier-note { margin: 0; font-size: 14px; color: var(--muted); min-height: 3em; }
+.slider { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.slider::-webkit-scrollbar { display: none; }
+.city { flex: 0 0 86%; scroll-snap-align: start; min-width: 0; background: var(--ink); color: var(--ink-fg); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.city-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.city-name { font-family: var(--display); font-weight: 800; font-size: 30px; text-transform: uppercase; line-height: 1; }
+.city-country { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); }
+.city-total b { display: block; font-family: var(--mono); font-size: clamp(24px, 7.5vw, 30px); font-weight: 700; color: var(--mango); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.city-total small { font-size: 12px; color: var(--ink-muted); }
+.cost-rows { display: flex; flex-direction: column; }
+.cost-row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--ink-line); font-size: 15px; }
+.cost-row span:last-child { font-family: var(--mono); font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.city-note { margin: 0; font-size: 13px; color: var(--ink-muted); }
+.dots { display: flex; justify-content: center; gap: 2px; }
+.dot { appearance: none; border: 0; background: none; padding: 8px 5px; cursor: pointer; }
+.dot::after { content: ""; display: block; width: 8px; height: 8px; border-radius: 4px; background: var(--line); transition: width .2s ease; }
+.dot[aria-current="true"]::after { width: 22px; background: var(--fg); }
+.fine { margin: 0; font-size: 12px; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) {
+  .city-total b, .cost-row span:last-child { transition: opacity .15s ease; }
+  .fading .city-total b, .fading .cost-row span:last-child { opacity: 0; }
+}
+
+/* Coaching */
+.coach {
+  display: flex; flex-direction: column; gap: 10px; text-decoration: none;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; box-shadow: var(--shadow);
+}
+.coach .pick-why { color: var(--fg); font-size: 16px; }
+.coach .note { font-size: 13px; color: var(--muted); }
+@media (hover: hover) { .coach:hover { border-color: var(--green); } }
+
+/* Footer */
+.follow {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; text-decoration: none;
+  border: 2px solid var(--fg); border-radius: 16px; padding: 16px 18px;
+}
+.follow b { font-family: var(--display); font-weight: 800; font-size: 22px; text-transform: uppercase; line-height: 1.05; }
+.follow span { font-weight: 800; font-size: 14px; color: var(--green); white-space: nowrap; }
+.disclose { margin: 0; font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="who">
+      <div class="mark" aria-hidden="true">W</div>
+      <div class="who-text"><b>Will · @NomadicMuscle</b><span>PT for 10 years · 5 years living in SE Asia</span></div>
+    </div>
+    <h1>Nomad <em>Starter</em> Guide</h1>
+    <p class="promise">Everything I'd set up before moving to Southeast Asia. Tap, sign up, done.</p>
+  </header>
+
+  <nav class="nav" aria-label="Sections">
+    <div class="nav-inner">
+      <a href="#setup" data-nav="setup" aria-current="true">Setup</a>
+      <a href="#earn" data-nav="earn">Earn</a>
+      <a href="#costs" data-nav="costs">Costs</a>
+      <a href="#train" data-nav="train">Train</a>
+    </div>
+  </nav>
+
+  <section id="setup">
+    <div class="head">
+      <span class="kicker">Before you fly · 3 steps</span>
+      <h2>Get set up</h2>
+    </div>
+    <div class="picks">
+      <a class="pick" data-link="wise" href="https://wise.com" target="_blank" rel="noopener sponsored">
+        <span class="step">1</span>
+        <span class="pick-body">
+          <span class="pick-top"><span class="pick-name">Wise card</span><span class="pick-type">Money</span></span>
+          <span class="pick-why">Pay in local currency at the real exchange rate. Skip the airport booth fees.</span>
+          <span class="pick-when">2 to 3 weeks out. The card ships by mail.</span>
+          <span class="pick-foot"><span class="cta">Get the card</span><span class="perk" data-perk="wise" hidden></span></span>
+        </span>
+      </a>
+      <a class="pick" data-link="insurance" href="https://safetywing.com" target="_blank" rel="noopener sponsored">
+        <span class="step">2</span>
+        <span class="pick-body">
+          <span class="pick-top"><span class="pick-name">SafetyWing</span><span class="pick-type">Insurance</span></span>
+          <span class="pick-why">Travel medical cover built for long trips. Month to month, so it fits a week or a year.</span>
+          <span class="pick-when">Start it before you leave.</span>
+          <span class="pick-foot"><span class="cta">Get covered</span><span class="perk" data-perk="insurance" hidden></span></span>
+        </span>
+      </a>
+      <a class="pick" data-link="esim" href="https://www.airalo.com" target="_blank" rel="noopener sponsored">
+        <span class="step">3</span>
+        <span class="pick-body">
+          <span class="pick-top"><span class="pick-name">Airalo</span><span class="pick-type">eSIM</span></span>
+          <span class="pick-why">Data that works the second you land. No SIM swap, no airport line.</span>
+          <span class="pick-when">Install the night before, on wifi.</span>
+          <span class="pick-foot"><span class="cta">Get data</span><span class="perk" data-perk="esim" hidden></span></span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <section id="earn">
+    <div class="head">
+      <span class="kicker">Remote income · 2 paths</span>
+      <h2>Start earning</h2>
+    </div>
+
+    <div class="path">
+      <span class="path-label">Fastest start</span>
+      <a class="feature" data-link="outlier" href="https://outlier.ai" target="_blank" rel="noopener sponsored">
+        <span class="badge">Free to join</span>
+        <span class="pick-name">Outlier</span>
+        <span class="pick-why">Get paid to help train AI using what you already know. Work from anywhere, on your own schedule.</span>
+        <span class="pick-foot"><span class="cta">Sign up free</span><span class="note">Up to $40/hr. Work comes in projects, so hours vary.</span></span>
+      </a>
+    </div>
+
+    <div class="path">
+      <span class="path-label">Bigger upside</span>
+      <p class="path-note">A full-time remote job means a steady salary. Takes longer to land, and both boards have paid plans.</p>
+      <div class="rows">
+        <a class="row" data-link="rocketship" href="https://www.remoterocketship.com" target="_blank" rel="noopener sponsored">
+          <span class="pick-body"><span class="pick-name">Remote Rocketship</span><span class="pick-why">Remote-only job board. Apply from anywhere.</span></span>
+          <span class="go">Browse</span>
+        </a>
+        <a class="row" data-link="flexjobs" href="https://www.flexjobs.com" target="_blank" rel="noopener sponsored">
+          <span class="pick-body"><span class="pick-name">FlexJobs</span><span class="pick-why">Every job hand-screened. No scams.</span></span>
+          <span class="go">Browse</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="costs">
+    <div class="head">
+      <span class="kicker">One person · per month · USD</span>
+      <h2>What it costs</h2>
+    </div>
+    <div class="tiers" role="group" aria-label="Lifestyle">
+      <button class="tier" id="tier-low" data-tier="low" aria-pressed="false">Low</button>
+      <button class="tier" id="tier-mid" data-tier="mid" aria-pressed="true">Mid</button>
+      <button class="tier" id="tier-top" data-tier="top" aria-pressed="false">Top</button>
+    </div>
+    <p class="tier-note" id="tier-note">Really nice place in a good area, eat out most days, gym, massages, your own bike or Grab.</p>
+    <div class="slider" id="slider" aria-label="Cities"></div>
+    <div class="dots" id="dots"></div>
+    <p class="fine">Utilities and wifi included. Flights, insurance and visas not included. Swipe for more cities.</p>
+  </section>
+
+  <section id="train">
+    <div class="head">
+      <span class="kicker">Online coaching</span>
+      <h2>Stay in shape out here</h2>
+    </div>
+    <a class="coach" href="https://ig.me/m/nomadicmuscle" target="_blank" rel="noopener">
+      <span class="pick-why">New country, new gym, no routine. That's where most people fall off. I've been a PT for 10 years and I coach clients online from wherever I am: a plan built around the gym you've got, and a check-in every week.</span>
+      <span class="pick-foot"><span class="cta">DM me about coaching</span><span class="note">We'll see if it's a fit.</span></span>
+    </a>
+  </section>
+
+  <a class="follow" href="https://www.instagram.com/nomadicmuscle" target="_blank" rel="noopener">
+    <b>Real costs from<br>real places</b>
+    <span>Follow →</span>
+  </a>
+
+  <p class="disclose">Some links are affiliate links. If you sign up, I may earn a small commission at no extra cost to you. That's how I keep sharing this for free.</p>
+</div>
+
+<script>
+/* ===== Your links. Paste each affiliate link between the quotes. Empty = brand homepage. ===== */
+var LINKS = {
+  wise: "",
+  insurance: "",
+  esim: "",
+  outlier: "",
+  rocketship: "",
+  flexjobs: ""
+};
+/* ===== Optional discount codes. Shown as a green chip on the card, e.g. "Code WILL15 · 15% off". ===== */
+var PERKS = {
+  wise: "",
+  insurance: "",
+  esim: ""
+};
+
+/* ===== Monthly cost ranges. Edit numbers here. ===== */
+var TIER_NOTES = {
+  low: "Modern 1 bedroom, mix of local food and eating out, a gym and weekends out.",
+  mid: "Really nice place in a good area, eat out most days, gym, massages, your own bike or Grab.",
+  top: "Luxury condo or pool villa in the best areas, drivers, eat and go out anywhere."
+};
+var CITIES = [
+  {
+    city: "Bangkok", country: "Thailand",
+    note: "I'm here right now. My condo is $700 and my gym is $60.",
+    tiers: {
+      low: { total: "$1,050 – 1,850", rent: "$400 – 700", food: "$330 – 500", move: "$85 – 140", fun: "$180 – 350" },
+      mid: { total: "$1,850 – 3,150", rent: "$700 – 1,250", food: "$500 – 800", move: "$150 – 250", fun: "$400 – 700" },
+      top: { total: "$3,200 – 5,450", rent: "$1,400 – 2,500", food: "$800 – 1,200", move: "$250 – 500", fun: "$600 – 1,000" }
+    }
+  },
+  {
+    city: "Da Nang", country: "Vietnam",
+    note: "Beach city. You'll want your own motorbike.",
+    tiers: {
+      low: { total: "$850 – 1,300", rent: "$350 – 550", food: "$250 – 350", move: "$60 – 100", fun: "$150 – 250" },
+      mid: { total: "$1,450 – 2,450", rent: "$600 – 1,000", food: "$400 – 600", move: "$100 – 250", fun: "$300 – 500" },
+      top: { total: "$2,550 – 4,400", rent: "$1,000 – 1,800", food: "$700 – 1,000", move: "$250 – 500", fun: "$500 – 900" }
+    }
+  },
+  {
+    city: "Bali", country: "Indonesia",
+    note: "Canggu prices. Sanur, the north and the east run cheaper.",
+    tiers: {
+      low: { total: "$1,350 – 2,050", rent: "$650 – 1,000", food: "$350 – 500", move: "$50 – 100", fun: "$200 – 350" },
+      mid: { total: "$2,050 – 3,700", rent: "$1,000 – 1,900", food: "$500 – 800", move: "$80 – 200", fun: "$350 – 600" },
+      top: { total: "$4,050 – 8,000", rent: "$2,000 – 4,000", food: "$900 – 1,500", move: "$400 – 1,000", fun: "$600 – 1,200" }
+    }
+  }
+];
+var ROWS = [["rent", "Rent"], ["food", "Food"], ["move", "Getting around"], ["fun", "Gym, massage, fun"]];
+
+/* Links and perks */
+document.querySelectorAll('[data-link]').forEach(function (a) {
+  var url = LINKS[a.dataset.link];
+  if (url) a.href = url;
+});
+document.querySelectorAll('[data-perk]').forEach(function (el) {
+  var text = PERKS[el.dataset.perk];
+  if (text) { el.textContent = text; el.hidden = false; }
+});
+
+/* Navigator: highlight the section on screen */
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+  var ids = links.map(function (l) { return l.dataset.nav; });
+  function mark(id) { links.forEach(function (l) { l.setAttribute('aria-current', String(l.dataset.nav === id)); }); }
+  links.forEach(function (l) { l.addEventListener('click', function () { mark(l.dataset.nav); }); });
+  if (!('IntersectionObserver' in window)) return;
+  var visible = {};
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+    for (var i = 0; i < ids.length; i++) { if (visible[ids[i]]) { mark(ids[i]); break; } }
+  }, { rootMargin: '-80px 0px -55% 0px' });
+  ids.forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+})();
+
+/* Open straight to a section when the link ends in #setup, #earn or #costs */
+(function () {
+  var id = (location.hash || '').slice(1);
+  if (['setup', 'earn', 'costs', 'train'].indexOf(id) === -1) return;
+  window.addEventListener('load', function () {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ block: 'start' });
+  });
+})();
+
+/* Cost cards */
+(function () {
+  var slider = document.getElementById('slider');
+  var dotsEl = document.getElementById('dots');
+  var noteEl = document.getElementById('tier-note');
+  var tierBtns = Array.prototype.slice.call(document.querySelectorAll('.tier'));
+  var tier = 'mid';
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  slider.innerHTML = CITIES.map(function (c, i) {
+    return '<article class="city" aria-label="' + esc(c.city) + '">' +
+      '<div class="city-top"><span class="city-name">' + esc(c.city) + '</span><span class="city-country">' + esc(c.country) + '</span></div>' +
+      '<div class="city-total"><b data-f="total"></b><small>per month</small></div>' +
+      '<div class="cost-rows">' + ROWS.map(function (r) {
+        return '<div class="cost-row"><span>' + r[1] + '</span><span data-f="' + r[0] + '"></span></div>';
+      }).join('') + '</div>' +
+      (c.note ? '<p class="city-note">' + esc(c.note) + '</p>' : '') +
+      '</article>';
+  }).join('');
+  dotsEl.innerHTML = CITIES.map(function (c, i) {
+    return '<button class="dot" type="button" data-i="' + i + '" aria-label="Show ' + esc(c.city) + '"' + (i === 0 ? ' aria-current="true"' : '') + '></button>';
+  }).join('');
+  var cards = Array.prototype.slice.call(slider.querySelectorAll('.city'));
+  var dots = Array.prototype.slice.call(dotsEl.querySelectorAll('.dot'));
+
+  function fill() {
+    cards.forEach(function (card, i) {
+      var t = CITIES[i].tiers[tier];
+      card.querySelectorAll('[data-f]').forEach(function (el) { el.textContent = t[el.dataset.f]; });
+    });
+    noteEl.textContent = TIER_NOTES[tier];
+  }
+  function press() { tierBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.tier === tier)); }); }
+  tierBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (b.dataset.tier === tier) return;
+      tier = b.dataset.tier; press();
+      slider.classList.add('fading');
+      setTimeout(function () { fill(); slider.classList.remove('fading'); }, 150);
+      try { localStorage.setItem('nm-tier2', tier); } catch (e) {}
+    });
+  });
+  slider.addEventListener('scroll', function () {
+    var w = cards[0].offsetWidth + 12;
+    var i = Math.max(0, Math.min(cards.length - 1, Math.round(slider.scrollLeft / w)));
+    dots.forEach(function (d, j) { d.setAttribute('aria-current', String(i === j)); });
+  }, { passive: true });
+  dots.forEach(function (d) {
+    d.addEventListener('click', function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      slider.scrollTo({ left: cards[+d.dataset.i].offsetLeft - slider.offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+  try { var saved = localStorage.getItem('nm-tier2'); if (saved && TIER_NOTES[saved]) tier = saved; } catch (e) {}
+  press(); fill();
+})();
+</script>
+</body>
+</html>
