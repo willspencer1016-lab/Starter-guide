@@ -26,7 +26,7 @@ gtag('config', 'G-ZLV7H94VV0');
 document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('a[href^="http"]');
   if (!a) return;
-  var name = a.dataset.link || (a.classList.contains('coach') ? 'coaching' : a.classList.contains('follow') ? 'follow' : 'other');
+  var name = a.dataset.link || (a.dataset.social ? 'social_' + a.dataset.social : null) || (a.classList.contains('coach') ? 'coaching' : a.classList.contains('follow') ? 'follow' : 'other');
   gtag('event', 'tap_' + name, { link_url: a.href, transport_type: 'beacon' });
 }, true);
 </script>
@@ -238,6 +238,20 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
 .follow b { font-family: var(--display); font-weight: 800; font-size: 22px; text-transform: uppercase; line-height: 1.05; }
 .follow span { font-weight: 800; font-size: 14px; color: var(--green); white-space: nowrap; }
 .disclose { margin: 0; font-size: 12px; color: var(--muted); }
+.rows.extras:not(:has(.row:not([hidden]))) { display: none; }
+.rows.extras .row:not([hidden]) ~ .row:not([hidden]) { border-top: 1px solid var(--line); }
+.rows.extras .row:first-of-type, .rows.extras .row[hidden] + .row { border-top: 0; }
+.foot { display: flex; flex-direction: column; gap: 18px; }
+.socials { display: flex; flex-wrap: wrap; gap: 8px; }
+.socials a {
+  text-decoration: none; font-weight: 700; font-size: 14px; padding: 8px 14px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--surface);
+}
+@media (hover: hover) { .socials a:hover { border-color: var(--green); } }
+.row-link { font-weight: 700; font-size: 15px; color: var(--green); text-decoration: none; }
+.work { display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
+.work b { font-family: var(--display); font-weight: 800; font-size: 24px; text-transform: uppercase; line-height: 1; }
+.work .email { font-family: var(--mono); font-size: 13px; color: var(--muted); user-select: all; overflow-wrap: anywhere; }
 </style>
 </head>
 <body>
@@ -296,6 +310,16 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
           <span class="pick-when">Install the night before, on wifi.</span>
           <span class="pick-foot"><span class="cta">Get data</span><span class="perk" data-perk="esim" hidden></span></span>
         </span>
+      </a>
+    </div>
+    <div class="rows extras" data-needs="getyourguide amazon">
+      <a class="row" data-link="getyourguide" href="#" target="_blank" rel="noopener sponsored" hidden>
+        <span class="pick-body"><span class="pick-name">Tours and day trips</span><span class="pick-why">Book island hops, treks and day trips on GetYourGuide.</span></span>
+        <span class="go">Browse</span>
+      </a>
+      <a class="row" data-link="amazon" href="#" target="_blank" rel="noopener sponsored" hidden>
+        <span class="pick-body"><span class="pick-name">What I pack</span><span class="pick-why">My travel and camera gear on Amazon.</span></span>
+        <span class="go">See gear</span>
       </a>
     </div>
   </section>
@@ -364,6 +388,17 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
     <span>Follow →</span>
   </a>
 
+  <footer class="foot">
+    <div class="socials" id="socials"></div>
+    <a class="row-link" data-link="map" href="#" target="_blank" rel="noopener" hidden>📍 Where am I today?</a>
+    <div class="work">
+      <span class="kicker">Brands</span>
+      <b>Work with me</b>
+      <a class="row-link" data-link="portfolio" href="https://nomadicmuscle.my.canva.site" target="_blank" rel="noopener">UGC portfolio and media kit →</a>
+      <span class="email">wmjames@nomadicmuscle.com</span>
+    </div>
+  </footer>
+
   <p class="disclose">Some links are affiliate links. If you sign up, I may earn a small commission at no extra cost to you. That's how I keep sharing this for free.</p>
 </div>
 
@@ -375,8 +410,22 @@ var LINKS = {
   esim: "",
   outlier: "",
   rocketship: "",
-  flexjobs: ""
+  flexjobs: "",
+  /* From your Linktree. Empty ones stay hidden. */
+  getyourguide: "",
+  amazon: "",
+  coaching: "",
+  map: "",
+  portfolio: "https://nomadicmuscle.my.canva.site"
 };
+/* Social profiles for the footer. Empty ones stay hidden. */
+var SOCIALS = [
+  ["Instagram", "https://www.instagram.com/nomadicmuscle"],
+  ["TikTok", ""],
+  ["YouTube", ""],
+  ["Facebook", ""],
+  ["Threads", ""]
+];
 /* ===== Optional discount codes. Shown as a green chip on the card, e.g. "Code WILL15 · 15% off". ===== */
 var PERKS = {
   wise: "",
@@ -424,8 +473,20 @@ var ROWS = [["rent", "Rent"], ["food", "Food"], ["move", "Getting around"], ["fu
 /* Links and perks */
 document.querySelectorAll('[data-link]').forEach(function (a) {
   var url = LINKS[a.dataset.link];
-  if (url) a.href = url;
+  if (url) { a.href = url; a.hidden = false; }
 });
+(function () {
+  var coach = document.querySelector('.coach');
+  if (coach && LINKS.coaching) coach.href = LINKS.coaching;
+  var box = document.getElementById('socials');
+  SOCIALS.forEach(function (s) {
+    if (!s[1]) return;
+    var a = document.createElement('a');
+    a.href = s[1]; a.target = '_blank'; a.rel = 'noopener'; a.textContent = s[0];
+    a.dataset.social = s[0].toLowerCase();
+    box.appendChild(a);
+  });
+})();
 document.querySelectorAll('[data-perk]').forEach(function (el) {
   var text = PERKS[el.dataset.perk];
   if (text) { el.textContent = text; el.hidden = false; }
