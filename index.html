@@ -228,7 +228,8 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
 }
 .coach .pick-why { color: var(--fg); font-size: 16px; }
 .coach .note { font-size: 13px; color: var(--muted); }
-@media (hover: hover) { .coach:hover { border-color: var(--green); } }
+.coach .cta { text-decoration: none; }
+.coach .dm { color: var(--green); font-weight: 700; }
 
 /* Footer */
 .follow {
@@ -403,10 +404,13 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
       <span class="kicker">Online coaching</span>
       <h2>Stay in shape out here</h2>
     </div>
-    <a class="coach" href="https://ig.me/m/nomadicmuscle" target="_blank" rel="noopener">
+    <div class="coach">
       <span class="pick-why">New country, new gym, no routine. That's where most people fall off. I've been a PT for 10 years and I coach clients online from wherever I am: a plan built around the gym you've got, and a check-in every week.</span>
-      <span class="pick-foot"><span class="cta">DM me about coaching</span><span class="note">We'll see if it's a fit.</span></span>
-    </a>
+      <span class="pick-foot">
+        <a class="cta" data-link="coaching" href="https://form.typeform.com/to/vHhZXy3U" target="_blank" rel="noopener">Apply for coaching</a>
+        <span class="note">Takes 2 minutes. Or <a class="dm" data-link="dm" href="https://ig.me/m/nomadicmuscle" target="_blank" rel="noopener">DM me</a>.</span>
+      </span>
+    </div>
   </section>
 
   <a class="follow" href="https://www.instagram.com/nomadicmuscle" target="_blank" rel="noopener">
@@ -440,7 +444,8 @@ var LINKS = {
   /* From your Linktree. Empty ones stay hidden. */
   gygPartnerId: "2RNMYOR",   /* your GetYourGuide partner ID, e.g. "ABCD123" */
   amazon: "",
-  coaching: "",
+  coaching: "https://form.typeform.com/to/vHhZXy3U",
+  dm: "https://ig.me/m/nomadicmuscle",
   map: "",
   portfolio: "https://nomadicmuscle.my.canva.site"
 };
@@ -519,8 +524,6 @@ document.querySelectorAll('[data-link]').forEach(function (a) {
   });
 })();
 (function () {
-  var coach = document.querySelector('.coach');
-  if (coach && LINKS.coaching) coach.href = LINKS.coaching;
   var box = document.getElementById('socials');
   SOCIALS.forEach(function (s) {
     if (!s[1]) return;
