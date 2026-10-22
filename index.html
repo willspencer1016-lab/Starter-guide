@@ -242,6 +242,8 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
 .rows.extras:not(:has(.row:not([hidden]))) { display: none; }
 .rows.extras .row:not([hidden]) ~ .row:not([hidden]) { border-top: 1px solid var(--line); }
 .rows.extras .row:first-of-type, .rows.extras .row[hidden] + .row { border-top: 0; }
+.subhead { margin-top: 18px; }
+.subhead h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 24px; line-height: 1; margin: 0; }
 .tours { display: flex; flex-direction: column; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); }
 .tours label { display: flex; flex-direction: column; gap: 2px; }
 .tours label b { font-weight: 800; font-size: 18px; }
@@ -329,6 +331,10 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
           <span class="pick-foot"><span class="cta">Get data</span><span class="perk" data-perk="esim" hidden></span></span>
         </span>
       </a>
+    </div>
+    <div class="head subhead">
+      <span class="kicker">The fun part</span>
+      <h3>Pack and plan</h3>
     </div>
     <form class="tours" id="tours" hidden>
       <label for="tour-city"><b>Find tours anywhere</b><span>Island hops, treks, food tours and day trips on GetYourGuide.</span></label>
