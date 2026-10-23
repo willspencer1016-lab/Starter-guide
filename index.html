@@ -25,7 +25,7 @@ gtag('config', 'G-ZLV7H94VV0');
 /* Every outbound tap gets its own event: tap_wise, tap_outlier, tap_coaching ... */
 document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('a[href^="http"]');
-  if (!a) return;
+  if (!a || a.dataset.trip) return; /* trip buttons send their own event with the city */
   var name = a.dataset.link || (a.dataset.social ? 'social_' + a.dataset.social : null) || (a.classList.contains('coach') ? 'coaching' : a.classList.contains('follow') ? 'follow' : 'other');
   gtag('event', 'tap_' + name, { link_url: a.href, transport_type: 'beacon' });
 }, true);
@@ -260,6 +260,16 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
   font: inherit; font-size: 13px; font-weight: 700; color: var(--green); background: var(--green-soft);
   border: 0; border-radius: 999px; padding: 6px 12px; cursor: pointer;
 }
+.tours-quick button[aria-pressed="true"] { background: var(--green); color: #fff; }
+.trip-go { display: flex; flex-direction: column; border-top: 1px solid var(--line); margin-top: 4px; }
+.trip-btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; text-decoration: none; color: var(--fg); }
+.trip-btn + .trip-btn { border-top: 1px solid var(--line); }
+.trip-btn > span:first-child { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.trip-btn b { font-weight: 800; font-size: 16px; }
+.trip-btn i { font-style: normal; }
+.trip-btn small { font-size: 13px; color: var(--muted); }
+.trip-btn .go { flex: none; font-weight: 800; font-size: 14px; color: var(--green); white-space: nowrap; }
+.trip-btn .go::after { content: " →"; }
 .foot { display: flex; flex-direction: column; gap: 18px; }
 .socials { display: flex; flex-wrap: wrap; gap: 8px; }
 .socials a {
@@ -340,19 +350,29 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
       <span class="kicker">The fun part</span>
       <h2>Pack and plan</h2>
     </div>
-    <form class="tours" id="tours" hidden>
-      <label for="tour-city"><b>Find tours anywhere</b><span>Island hops, treks, food tours and day trips on GetYourGuide.</span></label>
+    <div class="tours trip" id="trip">
+      <label for="trip-city"><b>Where are you headed?</b><span>Pick a city, then book your stay, tours and rides.</span></label>
+      <div class="tours-quick" id="trip-chips">
+        <button type="button" data-city="Bangkok" aria-pressed="false">Bangkok</button>
+        <button type="button" data-city="Chiang Mai" aria-pressed="false">Chiang Mai</button>
+        <button type="button" data-city="Da Nang" aria-pressed="false">Da Nang</button>
+        <button type="button" data-city="Bali" aria-pressed="false">Bali</button>
+      </div>
       <div class="tours-row">
-        <input id="tour-city" name="city" type="text" placeholder="Where are you headed?" autocomplete="off" enterkeyhint="search" required>
-        <button class="cta" type="submit">Search</button>
+        <input id="trip-city" type="text" placeholder="Or type any city" autocomplete="off" enterkeyhint="done">
       </div>
-      <div class="tours-quick">
-        <button type="button" data-city="Bangkok">Bangkok</button>
-        <button type="button" data-city="Da Nang">Da Nang</button>
-        <button type="button" data-city="Bali">Bali</button>
-        <button type="button" data-city="Chiang Mai">Chiang Mai</button>
+      <div class="trip-go">
+        <a class="trip-btn" data-trip="stays" href="https://agoda.tpk.ro/nyU1PGJJ" target="_blank" rel="noopener sponsored">
+          <span><b>Find a stay<i class="trip-in"></i></b><small>Hotels and apartments on Agoda</small></span><span class="go">Open</span>
+        </a>
+        <a class="trip-btn" data-trip="tours" href="https://getyourguide.tpk.ro/jiuY2GBw" target="_blank" rel="noopener sponsored">
+          <span><b>Book tours<i class="trip-in"></i></b><small>Day trips, food tours and island hops on GetYourGuide</small></span><span class="go">Open</span>
+        </a>
+        <a class="trip-btn" data-trip="rides" href="https://12go.tpk.ro/gCyE3fwP" target="_blank" rel="noopener sponsored">
+          <span><b>Buses, trains and ferries<i class="trip-in"></i></b><small>Tickets between cities on 12Go</small></span><span class="go">Open</span>
+        </a>
       </div>
-    </form>
+    </div>
     <div class="rows extras">
       <a class="row" data-link="amazon" href="#" target="_blank" rel="noopener sponsored" hidden>
         <span class="pick-body"><span class="pick-name">What I pack</span><span class="pick-why">My travel and camera gear on Amazon.</span></span>
@@ -515,28 +535,58 @@ var CITIES = [
 ];
 var ROWS = [["rent", "Rent"], ["food", "Food"], ["move", "Getting around"], ["fun", "Gym, massage, fun"]];
 
+/* Where are you headed? box. Travelpayouts (Instagram project), sub ID starterguide */
+var TRIP = {
+  home: { stays: "https://agoda.tpk.ro/nyU1PGJJ", tours: "https://getyourguide.tpk.ro/jiuY2GBw", rides: "https://12go.tpk.ro/gCyE3fwP" },
+  cities: {
+    "bangkok":    { stays: "https://agoda.tpk.ro/lC8bLtNK", rides: "https://12go.tpk.ro/nl71Pn2C" },
+    "chiang mai": { stays: "https://agoda.tpk.ro/vEpymmGr", rides: "https://12go.tpk.ro/4mqB1HdQ" },
+    "da nang":    { stays: "https://agoda.tpk.ro/dnvSEgKa", rides: "https://12go.tpk.ro/Q77fXWqa" },
+    "bali":       { stays: "https://agoda.tpk.ro/jtAMGehG", rides: "https://12go.tpk.ro/t9rQO3tc" }
+  }
+};
+
 /* Links and perks */
 document.querySelectorAll('[data-link]').forEach(function (a) {
   var url = LINKS[a.dataset.link];
   if (url) { a.href = url; a.hidden = false; }
 });
 (function () {
-  var form = document.getElementById('tours');
-  if (!LINKS.gygPartnerId || !form) return;
-  form.hidden = false;
-  var input = document.getElementById('tour-city');
-  function go(city) {
+  /* Where are you headed? Travelpayouts links (sub ID starterguide), city pages for the 4 cities */
+  var box = document.getElementById('trip');
+  if (!box) return;
+  var HOME = { stays: TRIP.home.stays, rides: TRIP.home.rides };
+  var input = document.getElementById('trip-city');
+  var chips = box.querySelectorAll('[data-city]');
+  var btns = box.querySelectorAll('[data-trip]');
+  function update(city) {
     city = (city || '').trim();
-    if (!city) { input.focus(); return; }
-    var url = 'https://www.getyourguide.com/s/?q=' + encodeURIComponent(city) +
-      '&partner_id=' + encodeURIComponent(LINKS.gygPartnerId) + '&cmp=starterguide&utm_medium=online_publisher';
-    if (typeof gtag === 'function') gtag('event', 'tour_search', { city: city.toLowerCase(), transport_type: 'beacon' });
-    window.open(url, '_blank', 'noopener');
+    var key = city.toLowerCase();
+    var known = TRIP.cities[key];
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', c.dataset.city.toLowerCase() === key ? 'true' : 'false'); });
+    btns.forEach(function (a) {
+      var kind = a.dataset.trip;
+      if (kind === 'tours') {
+        a.href = city ? 'https://www.getyourguide.com/s/?q=' + encodeURIComponent(city) + '&partner_id=' + encodeURIComponent(LINKS.gygPartnerId) + '&cmp=starterguide&utm_medium=online_publisher' : TRIP.home.tours;
+      } else {
+        a.href = known ? known[kind] : HOME[kind];
+      }
+      a.querySelector('.trip-in').textContent = city ? ' in ' + city : '';
+      if (kind === 'stays') a.querySelector('.trip-in').textContent = known ? ' in ' + city : '';
+      if (kind === 'rides') a.querySelector('.trip-in').textContent = known ? ' from ' + city : '';
+    });
   }
-  form.addEventListener('submit', function (e) { e.preventDefault(); go(input.value); });
-  form.querySelectorAll('[data-city]').forEach(function (b) {
-    b.addEventListener('click', function () { input.value = b.dataset.city; go(b.dataset.city); });
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () { input.value = c.dataset.city; update(c.dataset.city); });
   });
+  input.addEventListener('input', function () { update(input.value); });
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); input.blur(); } });
+  btns.forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (typeof gtag === 'function') gtag('event', 'trip_' + a.dataset.trip, { city: (input.value || 'none').trim().toLowerCase(), transport_type: 'beacon' });
+    });
+  });
+  update('');
 })();
 (function () {
   var box = document.getElementById('socials');
