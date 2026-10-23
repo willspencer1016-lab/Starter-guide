@@ -261,6 +261,7 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
   border: 0; border-radius: 999px; padding: 6px 12px; cursor: pointer;
 }
 .tours-quick button[aria-pressed="true"] { background: var(--green); color: #fff; }
+.trip-note { margin: 0; font-size: 13px; color: var(--muted); }
 .trip-go { display: flex; flex-direction: column; border-top: 1px solid var(--line); margin-top: 4px; }
 .trip-btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; text-decoration: none; color: var(--fg); }
 .trip-btn + .trip-btn { border-top: 1px solid var(--line); }
@@ -361,6 +362,7 @@ h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
       <div class="tours-row">
         <input id="trip-city" type="text" placeholder="Or type any city" autocomplete="off" enterkeyhint="done">
       </div>
+      <p class="trip-note" id="trip-note" hidden></p>
       <div class="trip-go">
         <a class="trip-btn" data-trip="stays" href="https://agoda.tpk.ro/nyU1PGJJ" target="_blank" rel="noopener sponsored">
           <span><b>Find a stay<i class="trip-in"></i></b><small>Hotels and apartments on Agoda</small></span><span class="go">Open</span>
@@ -539,10 +541,10 @@ var ROWS = [["rent", "Rent"], ["food", "Food"], ["move", "Getting around"], ["fu
 var TRIP = {
   home: { stays: "https://agoda.tpk.ro/nyU1PGJJ", tours: "https://getyourguide.tpk.ro/jiuY2GBw", rides: "https://12go.tpk.ro/gCyE3fwP" },
   cities: {
-    "bangkok":    { stays: "https://agoda.tpk.ro/lC8bLtNK", rides: "https://12go.tpk.ro/nl71Pn2C" },
-    "chiang mai": { stays: "https://agoda.tpk.ro/vEpymmGr", rides: "https://12go.tpk.ro/4mqB1HdQ" },
-    "da nang":    { stays: "https://agoda.tpk.ro/dnvSEgKa", rides: "https://12go.tpk.ro/Q77fXWqa" },
-    "bali":       { stays: "https://agoda.tpk.ro/jtAMGehG", rides: "https://12go.tpk.ro/t9rQO3tc" }
+    "bangkok":    { tours: "https://getyourguide.tpk.ro/kcxAPCXv", stays: "https://agoda.tpk.ro/lC8bLtNK", rides: "https://12go.tpk.ro/nl71Pn2C" },
+    "chiang mai": { tours: "https://getyourguide.tpk.ro/uDiIxNwJ", stays: "https://agoda.tpk.ro/vEpymmGr", rides: "https://12go.tpk.ro/4mqB1HdQ" },
+    "da nang":    { tours: "https://getyourguide.tpk.ro/5QTpR3d8", stays: "https://agoda.tpk.ro/dnvSEgKa", rides: "https://12go.tpk.ro/Q77fXWqa" },
+    "bali":       { tours: "https://getyourguide.tpk.ro/APdEqK31", stays: "https://agoda.tpk.ro/jtAMGehG", rides: "https://12go.tpk.ro/t9rQO3tc" }
   }
 };
 
@@ -552,10 +554,10 @@ document.querySelectorAll('[data-link]').forEach(function (a) {
   if (url) { a.href = url; a.hidden = false; }
 });
 (function () {
-  /* Where are you headed? Travelpayouts links (sub ID starterguide), city pages for the 4 cities */
+  /* Where are you headed? All Travelpayouts links (sub ID starterguide): city pages for the 4 cities, homepages for anywhere else */
   var box = document.getElementById('trip');
   if (!box) return;
-  var HOME = { stays: TRIP.home.stays, rides: TRIP.home.rides };
+  var HOME = TRIP.home;
   var input = document.getElementById('trip-city');
   var chips = box.querySelectorAll('[data-city]');
   var btns = box.querySelectorAll('[data-trip]');
@@ -563,17 +565,14 @@ document.querySelectorAll('[data-link]').forEach(function (a) {
     city = (city || '').trim();
     var key = city.toLowerCase();
     var known = TRIP.cities[key];
+    var note = document.getElementById('trip-note');
+    note.hidden = !city || !!known;
+    note.textContent = 'Each site opens on its homepage. Search for ' + city + ' there.';
     chips.forEach(function (c) { c.setAttribute('aria-pressed', c.dataset.city.toLowerCase() === key ? 'true' : 'false'); });
     btns.forEach(function (a) {
       var kind = a.dataset.trip;
-      if (kind === 'tours') {
-        a.href = city ? 'https://www.getyourguide.com/s/?q=' + encodeURIComponent(city) + '&partner_id=' + encodeURIComponent(LINKS.gygPartnerId) + '&cmp=starterguide&utm_medium=online_publisher' : TRIP.home.tours;
-      } else {
-        a.href = known ? known[kind] : HOME[kind];
-      }
-      a.querySelector('.trip-in').textContent = city ? ' in ' + city : '';
-      if (kind === 'stays') a.querySelector('.trip-in').textContent = known ? ' in ' + city : '';
-      if (kind === 'rides') a.querySelector('.trip-in').textContent = known ? ' from ' + city : '';
+      a.href = known ? known[kind] : HOME[kind];
+      a.querySelector('.trip-in').textContent = known ? (kind === 'rides' ? ' from ' : ' in ') + city : '';
     });
   }
   chips.forEach(function (c) {
