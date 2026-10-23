@@ -609,13 +609,20 @@ document.querySelectorAll('[data-perk]').forEach(function (el) {
   var ids = links.map(function (l) { return l.dataset.nav; });
   function mark(id) { links.forEach(function (l) { l.setAttribute('aria-current', String(l.dataset.nav === id)); }); }
   links.forEach(function (l) { l.addEventListener('click', function () { mark(l.dataset.nav); }); });
-  if (!('IntersectionObserver' in window)) return;
-  var visible = {};
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
-    for (var i = 0; i < ids.length; i++) { if (visible[ids[i]]) { mark(ids[i]); break; } }
-  }, { rootMargin: '-80px 0px -55% 0px' });
-  ids.forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  /* Highlight the section whose heading has scrolled past the sticky nav */
+  var secs = ids.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+  var ticking = false;
+  function spy() {
+    ticking = false;
+    var line = 130, current = secs[0].id;
+    secs.forEach(function (s) { if (s.getBoundingClientRect().top <= line) current = s.id; });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = secs[secs.length - 1].id;
+    mark(current);
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+  window.addEventListener('resize', spy);
+  window.addEventListener('load', spy);
+  spy();
 })();
 
 /* Open straight to a section when the link ends in #setup, #earn or #costs */
